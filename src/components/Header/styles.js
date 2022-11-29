@@ -14,14 +14,18 @@ export const Container = styled.header `
 
 `;
 
-export const Profile = styled(Link) `
+export const Profile = styled.button `
   display: flex;
   align-items: center;
+  background: none;
+  border: none;
+  text-align: start;
 
   > img {
     width: 56px;
     height: 56px;
     border-radius: 50%;
+    object-fit: cover;
   }
 
   > div {
@@ -39,6 +43,11 @@ export const Profile = styled(Link) `
     strong {
       font-family: 'Roboto Slab', serif;
       font-size: 18px;
+      color: ${({ theme }) => theme.COLORS.WHITE};
+    }
+    
+    a {
+      text-decoration: none;
       color: ${({ theme }) => theme.COLORS.WHITE};
     }
   }

@@ -13,6 +13,10 @@ export const Container = styled.div `
 
     padding: 0 124px;
 
+    > button {
+      background: none;
+      border: none;
+    }
   }
 
   svg {
@@ -20,10 +24,6 @@ export const Container = styled.div `
     font-size: 24px
   }
 
-  button {
-    background-color: none;
-    border: none;
-  }
 
 `;
 
@@ -41,11 +41,12 @@ export const Avatar = styled.div `
   margin: -124px auto 32px;
   width: 186px;
   height: 186px;
-
+  
   > img {
     width: 186px;
     height: 186px;
     border-radius: 50%;
+    object-fit: cover;
   }
 
   > label {

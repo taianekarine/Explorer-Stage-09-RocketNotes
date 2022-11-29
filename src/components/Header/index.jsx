@@ -3,7 +3,7 @@ import { RiShutDownLine } from 'react-icons/ri';
 import { useAuth } from '../../hooks/auth';
 import { api } from '../../services/api';
 import avatarPlaceholder from '../../assets/avatar_placeholder.svg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 
@@ -12,7 +12,6 @@ export const Header = () => {
   const navigate = useNavigate()
   
   const handleSignOut = () => {
-    navigate('/')
     signOut()
   }
 
@@ -25,7 +24,11 @@ export const Header = () => {
       
         <div>
           <span>Bem-vindo/a</span>
-          <strong>{user.name}</strong>
+          <strong>
+            <Link to = '/profile'>
+            {user.name}
+            </Link>
+            </strong>
         </div> 
             
       </Profile>

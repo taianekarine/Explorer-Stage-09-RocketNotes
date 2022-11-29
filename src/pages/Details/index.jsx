@@ -5,7 +5,7 @@ import { Button } from '../../components/Button';
 import { Section } from '../../components/Section';
 import { Tag } from '../../components/Tag';
 import { ButtonText } from '../../components/ButtonText'
-import { useParams, useNavigate, Navigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { api } from '../../services/api';
 
 export const Details = () => {
@@ -16,7 +16,7 @@ export const Details = () => {
   
   const navigate = useNavigate()
   const handleBack = () => {
-    navigate('-1')
+    navigate('/')
   }
 
   const handleRemove = async () => {
@@ -24,7 +24,7 @@ export const Details = () => {
 
     if(confirm) {
       await api.delete(`/notes/${params.id}`);
-      navigate('-1') 
+      handleBack()
     }
   }
 
@@ -46,7 +46,7 @@ export const Details = () => {
       <main>
         <Content>
   
-          <ButtonText title = 'Excluir nota' onClick = {handleRemove()}/>
+          <ButtonText title = 'Excluir nota' onClick = {handleRemove}/>
 
           <h1>{data.title}</h1>
           <p>{data.description}</p>
@@ -79,7 +79,7 @@ export const Details = () => {
 
           }
 
-          <Button title = 'Voltar' onClick = {() => handleBack()}/>
+          <Button title = 'Voltar' onClick = {handleBack}/>
         </Content>
       </main> 
       }

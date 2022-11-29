@@ -23,7 +23,7 @@ export const Profile = () => {
 
     const navigate = useNavigate()
     const handleBack = () => {
-      navigate('-1')
+      navigate('/')
     }
 
     const handleUpdate = async () => {

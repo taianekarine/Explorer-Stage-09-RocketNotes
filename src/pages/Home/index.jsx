@@ -52,13 +52,12 @@ export const Home = () => {
   useEffect(() => {
     const fetchNotes = async () => {
       const response = await api.get(`/notes?title=${search}&tags=${tagsSelected}`);
-      setNotes(response.data);
+      setNotes(response.data.notesWithTags);
     }
 
     fetchNotes()
     
   }, [tagsSelected, search])
-
 
   return (
     <Container>
@@ -103,19 +102,17 @@ export const Home = () => {
       </Search>
 
       <Content>
-{/* Aqui nao funciona */}
+
         <Section title = 'Minhas notas'> 
-          {
-            notes.map(note => (
+           {
+           notes.map(note => (
               <Note
                 key = {String(note.id)}
                 data={note}
                 onClick = {() => handleDetails(note.id)}
               />
-
             ))
           }
-        
         </Section>
 
       </Content>

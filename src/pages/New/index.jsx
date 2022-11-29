@@ -22,9 +22,6 @@ export const New = () => {
   const [newTags, setNewTags] = useState('');
 
   const navigate = useNavigate();
-  const handleBack = () => {
-    navigate('-1')
-  }
 
   const handleAddLink = () => {
     setLinks(prevState => [...prevState, newLink])
@@ -50,11 +47,11 @@ export const New = () => {
     }
 
     if(newLink) {
-      alert('O campo link esta preenchido sem adicionar. Clique para adicionarr ou deixe o campo vazio.')
+      return alert('O campo link esta preenchido sem adicionar. Clique para adicionarr ou deixe o campo vazio.')
     }
     
     if(newTags) {
-      alert('O campo marcadores preenchido sem adicionar. Clique para adicionarr ou deixe o campo vazio.')
+      return alert('O campo marcadores preenchido sem adicionar. Clique para adicionarr ou deixe o campo vazio.')
     }
 
     await api.post('/notes',  {
@@ -65,9 +62,12 @@ export const New = () => {
     });
 
     alert('Nota criada com sucesso!');
-    navigate('-1')
+    navigate('/')
   }
 
+  const handleBack = () => {
+    navigate('-1')
+  }
 
 
   return (
@@ -77,7 +77,7 @@ export const New = () => {
         <Form>
           <header>
             <h1> Criar Nota </h1>
-            <ButtonText title = 'Voltar' onClick = {handleBack()}/>
+            <ButtonText title = 'Voltar' onClick = {handleBack}/>
           </header>
 
 
@@ -90,8 +90,6 @@ export const New = () => {
             placeholder = 'Observações'
             onChange = {e => setDescription(e.target.value)} 
           />
-
-
 
           <Section title = 'Links úteis'>
             {
@@ -111,7 +109,7 @@ export const New = () => {
           </Section>
 
           <Section title = 'Marcadores'>
-            <div class='tags'> 
+            <div className='tags'> 
             {
               tags.map((tag, index) => (
                 <NoteItem
