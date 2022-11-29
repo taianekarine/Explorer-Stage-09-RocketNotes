@@ -37,9 +37,17 @@ const AuthProvider = ({ children }) => {
     setData({})
   };
 
-  const updateProfile = async ({ user }) => {
+  const updateProfile = async ({ user, avatarFile }) => {
     try {
-    
+      
+      if(avatarFile) {
+        const fileUploadForm = new FormData();
+        fileUploadForm.append('avatar', avatarFile);
+        const response = await api.path('/users/avatar', fileUploadForm);
+        user.avatar = response.data.avatar;
+      }
+
+
       await api.put('/users', user);
       
       localStorage.setItem('@rocketnotes:user', JSON.stringify(user));
@@ -51,7 +59,7 @@ const AuthProvider = ({ children }) => {
     } catch (error) {
       if(error.response) {
         alert(error.response.data.message);
-      } else { alert('Não foi possível entrar.') }
+      } else { alert('Não foi possível atualizar dados.') }
     }
   }
 

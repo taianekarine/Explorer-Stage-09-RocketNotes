@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import avatarPlaceholder from '../../assets/avatar_placeholder.svg';
 import { FiArrowLeft, FiUser, FiMail, FiLock, FiCamera } from 'react-icons/fi';
 import { Container, Form, Avatar } from './styles';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input'
 import { useAuth } from '../../hooks/auth';
 import { Link } from 'react-router-dom';
+import { api } from '../../services/api';
 
 export const Profile = () => {
     const { user, updateProfile } = useAuth();
@@ -13,7 +15,11 @@ export const Profile = () => {
     const [email, setEmail] = useState(user.email);
     const [passwordOld, setPasswordOld] = useState();
     const [passwordNew, setPasswordNew] = useState();
-    const [avatar, setAvatar] = useState(null);
+
+    const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder;
+    const [avatar, setAvatar] = useState(avatarUrl);
+    const [avatarFile, setAvatarFile] = useState(null);
+
 
 
     const handleUpdate = async () => {
@@ -24,11 +30,18 @@ export const Profile = () => {
         old_password: passwordOld,
       }
 
-      await updateProfile({ user });
+      await updateProfile({ user, avatarFile });
 
     };
 
-    
+    const handleChangeAvatar = (event) => {
+
+      const file = event.target.files[0];
+      setAvatarFile(file);
+
+      const imgPreview = URL.createObjectURL(file);
+      setAvatar(imgPreview);
+    }
 
 
 
