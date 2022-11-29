@@ -5,8 +5,9 @@ import { Container, Form, Avatar } from './styles';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input'
 import { useAuth } from '../../hooks/auth';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { api } from '../../services/api';
+
 
 export const Profile = () => {
     const { user, updateProfile } = useAuth();
@@ -20,17 +21,20 @@ export const Profile = () => {
     const [avatar, setAvatar] = useState(avatarUrl);
     const [avatarFile, setAvatarFile] = useState(null);
 
-
+    const navigate = useNavigate()
+    const handleBack = () => {
+      navigate('-1')
+    }
 
     const handleUpdate = async () => {
-      const user = {
+      const updated = {
         name,
         email,
         password: passwordNew,
         old_password: passwordOld,
       }
-
-      await updateProfile({ user, avatarFile });
+      const userUpdated = Object.assign(user, updated)
+      await updateProfile({ user: userUpdated, avatarFile });
 
     };
 
@@ -43,13 +47,12 @@ export const Profile = () => {
       setAvatar(imgPreview);
     }
 
-
-
-
   return (
     <Container>
     <header>
-      <Link to = '/'> <FiArrowLeft /></Link>
+      <button type = 'button' onClick={handleBack}>
+        <FiArrowLeft />
+      </button>
     </header>
     
 

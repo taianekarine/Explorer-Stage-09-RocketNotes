@@ -20,6 +20,11 @@ export const Container = styled.div `
     font-size: 24px
   }
 
+  button {
+    background-color: none;
+    border: none;
+  }
+
 `;
 
 export const Form = styled.form `

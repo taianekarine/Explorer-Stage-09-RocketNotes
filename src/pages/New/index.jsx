@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/Input';
 import { TextArea } from '../../components/TextArea';
 import { NoteItem } from '../../components/NoteItem';
 import { Section } from '../../components/Section';
 import { Button } from '../../components/Button';
+import { ButtonText } from '../../components/ButtonText';
 import { Container, Form } from './styles';
 import { api } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
@@ -21,8 +21,10 @@ export const New = () => {
   const [tags, setTags] = useState([]);
   const [newTags, setNewTags] = useState('');
 
-    const navigate = useNavigate();
-
+  const navigate = useNavigate();
+  const handleBack = () => {
+    navigate('-1')
+  }
 
   const handleAddLink = () => {
     setLinks(prevState => [...prevState, newLink])
@@ -51,7 +53,7 @@ export const New = () => {
       alert('O campo link esta preenchido sem adicionar. Clique para adicionarr ou deixe o campo vazio.')
     }
     
-    if(newTag) {
+    if(newTags) {
       alert('O campo marcadores preenchido sem adicionar. Clique para adicionarr ou deixe o campo vazio.')
     }
 
@@ -63,7 +65,7 @@ export const New = () => {
     });
 
     alert('Nota criada com sucesso!');
-    navigate('/')
+    navigate('-1')
   }
 
 
@@ -75,7 +77,7 @@ export const New = () => {
         <Form>
           <header>
             <h1> Criar Nota </h1>
-            <Link to ='/'>Voltar</Link>
+            <ButtonText title = 'Voltar' onClick = {handleBack()}/>
           </header>
 
 
